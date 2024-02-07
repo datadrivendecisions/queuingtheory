@@ -19,7 +19,7 @@ The system of a queue is characterized by:
 
 -   the customer arrival process (e.g. poisson process)
 -   the service duration (e.g. exponential law)
--   the number of services
+-   the number of servers
 -   the maximum number of customers in the system (buffer)
 -   service discipline (e.g. FIFO), possible service classes (priorities), etc.
 
