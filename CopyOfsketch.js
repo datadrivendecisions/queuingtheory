@@ -5,10 +5,10 @@ function setup() {
   background(255); // Set background color to white
   drawTimeline();
   drawArrivals();
-  drawDepartures();
+  // drawDepartures();
   drawTimes();
   drawClients();
-  drawServiceTimes()
+  // drawServiceTimes()
 }
 
 function drawTimeline() {
@@ -108,10 +108,10 @@ function drawTimes() {
   drawTime(350,  170, 'T_2');
   drawTime(600,  170, 'T_3');
   // drawTime(100,  70, 'S_1');
-  drawTime(275,  140, 'S_1');
-  drawTime(415,  70, 'S_2');
-  drawTime(650,  140, 'S_3');
-  drawTime(540,  70, 'Idle');
+  // drawTime(275,  140, 'S_1');
+  // drawTime(415,  70, 'S_2');
+  // drawTime(650,  140, 'S_3');
+  // drawTime(540,  70, 'Idle');
 }
 
 function drawTime(x, y, time) {
