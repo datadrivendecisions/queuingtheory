@@ -145,10 +145,10 @@ If a customer arrives to a infinite buffer and all the servers are busy, this cu
 ![Infinite buffer](infbuffer.png)
 
 # Lesson 4 - **A simple example of a queue**
+
 ```{=html}
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dYMLO8rUL4I?si=sSraVzR9eii0C8xa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 ```
-
 ![](service.png)
 
 ![](stepfunc.png)
@@ -162,4 +162,3 @@ The **stationary state** of this randon process is studied in order to estimate 
 ```{=html}
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dxsPoCbgdDs?si=qTe_RDTgnUC5nLOM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 ```
-
