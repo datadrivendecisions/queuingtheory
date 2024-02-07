@@ -136,4 +136,8 @@ It is generally assumed that servers are identical, meaning that the distributio
 
 The **maximum number of customers** in the system is the sum of the number of positions in the waiting buffer and the number of servers.
 
-![Buffer](buffer.png)
+If a customer arrives to a finite buffer that is full, this customer is lost (blocked). This is called a **blocking queue**.
+
+![Finite buffer](buffer.png)
+
+If a customer arrives to a infinite buffer and all the servers are busy this customer lines up in the waiting buffer. This is called a **pure waiting queue**.
