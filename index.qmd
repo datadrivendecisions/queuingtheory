@@ -69,7 +69,7 @@ probs = [tail_dist_u(l, u) for u in u_list]
 px.line(x=u_list, y=probs, title='Exponential inter-arrival times')
 ```
 
-## Lesson 1 - **Service durations**
+## Lesson 2 - **Service durations**
 
 ```{=html}
 <iframe width="560" height="315" src="https://www.youtube.com/embed/sPlZoOc80jM?si=aRgoua7OtTcZ_Stn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -120,3 +120,20 @@ $$
 $$
 
 Eg. If on average 10 clients arrive during one hour and the average service time per client is 5 minutes, then the offered load equals 50 minutes.
+
+## Lesson 3 - **Servers and waiting buffer**
+
+```{=html}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/thL7wfJ4vGo?si=lw3EL0XlfISiu58C" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+```
+### Number of servers
+
+In a system with multiple servers, there cannot be any customers waiting if at least one server is idle. As soon as one server is freed, a customer among those waiting uses it (if the waiting buffer is not empty).
+
+It is generally assumed that servers are identical, meaning that the distribution of service durations is the same for all servers.
+
+### The maximum number of customers
+
+The **maximum number of customers** in the system is the sum of the number of positions in the waiting buffer and the number of servers.
+
+![Buffer](buffer.png)
