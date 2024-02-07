@@ -1,0 +1,122 @@
+---
+title: "Queuing Theory"
+format:
+   html:
+     toc: true
+     theme: minty
+editor: visual
+jupyter: envpy39
+---
+
+## Lesson 1 - **Modeling the problem**
+
+```{=html}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jPHJkZ3iOfQ?si=DPx0sHkddPc0LU6R" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+```
+### System definition
+
+The system of a queue is characterized by:
+
+-   the customer arrival process (e.g. poisson process)
+-   the service duration (e.g. exponential law)
+-   the number of services
+-   the maximum number of customers in the system (buffer)
+-   service discipline (e.g. FIFO), possible service classes (priorities), etc.
+
+![Arrival times](arrivals.png){fig-align="center"}
+
+$T_i$ is the **arrival time** of customer number $i$.
+
+$U_i = T_{i+1} - T_1$ is the **interarrival-time** between customers number i and (i+1).
+
+In simple models, we assume that **successive inter-arrival times** $U_1, U_2, U_3, ...$:
+
+-   are **independent**
+-   follow the **same probabibility distribution**
+
+The customer arrival process is then fully characterized by the **law of inter-arrival times**.
+
+### Poisson arrivals
+
+A particular case of arrival processes is the Poisson process in which the successive *inter-arrival times* $U_1, U_2, U_3, ...$ are independent, and distributed according to the **exponential law with parameter** $\lambda$. Equivalently , the *arrival process* is a **Poisson process with parameter** $\lambda$.
+
+$$
+P(U_i \geq u) = e^{-\lambda u}
+$$
+
+The arrival rate $\lambda$ is the **the average number of arrivals per time unit** (e.g. patients per hour). The **average inter-arrvial time** s equals $1/\lambda$ (time units, e.g. hours)
+
+```{python}
+import math
+import numpy as np
+import plotly.express as px
+
+def tail_dist_u(l, u): # Tail distribution of interarrival times for patients
+  return math.exp(-l*u)
+
+l = 6 # l patients per hour
+mean_u = 1/l # mean interarrival times in fraction of an hour
+test = [0.25, 0.75, 1, 1.25]
+u_list = [t*mean_u for t in test]
+
+for u in u_list:
+  print(f'The probablity that U_i is larger than {u} = {tail_dist_u(l, u)}')
+```
+
+```{python}
+u_list = np.linspace(0.01, 1, num=1000)
+probs = [tail_dist_u(l, u) for u in u_list]
+px.line(x=u_list, y=probs, title='Exponential inter-arrival times')
+```
+
+## Lesson 1 - **Service durations**
+
+```{=html}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sPlZoOc80jM?si=aRgoua7OtTcZ_Stn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+```
+### Service times
+
+The service time $S_i$ of customer $i$ is the time during which a server is busy servicing customer $i$.
+
+![Service times](service.png){fig-align="center"}
+
+we assume that **service times** $S_1, S_2, S_3, ...$:
+
+-   are **independent** and \*\*identically distributer\* (*idd*).
+-   are characterized by their **probability distribution**.
+
+The exponential distribution is an important particular case of service duration.
+
+$$
+P(S_i \geq s) = e^{-\mu s}
+$$
+
+```{python}
+mu = 10 # mu patients per hour
+mean_s = 1/mu # mean service time in fraction of hour
+test = [0.25, 0.75, 1, 1.25, 3]
+s_list = [t*mean_s for t in test]
+
+for s in s_list:
+  print(f'The probablity that S_i is larger than {s} = {tail_dist_u(mu, s)}')
+
+```
+
+```{python}
+s_list = np.linspace(0.01, 1, num=1000)
+probs = [tail_dist_u(mu, s) for s in s_list]
+px.line(x=s_list, y=probs, title='Exponential inter-arrival times')
+```
+
+### Offered load
+
+-   The arrival rate $\lambda$ is the average number of arrivals per time unit
+-   The service rate $\mu$ is the average number of customers a server is able to handle if it is always busy. Equivalently, $1/{\mu}$ is the average service duration.
+
+The average performance of the system depends on the offered load $\rho$, defined as
+
+$$
+\rho = \frac{\lambda}{\mu} \ (unit: Erlang)
+$$
+
+Eg. If on average 10 clients arrive during one hour and the average service time per client is 5 minutes, then the offered load equals 50 minutes.
