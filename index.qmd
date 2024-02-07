@@ -132,7 +132,7 @@ In a system with multiple servers, there cannot be any customers waiting if at l
 
 It is generally assumed that servers are identical, meaning that the distribution of service durations is the same for all servers.
 
-### The maximum number of customers
+### Waiting buffers
 
 The **maximum number of customers** in the system is the sum of the number of positions in the waiting buffer and the number of servers.
 
