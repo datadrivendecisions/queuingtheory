@@ -105,7 +105,7 @@ for s in s_list:
 ```{python}
 s_list = np.linspace(0.01, 1, num=1000)
 probs = [tail_dist_u(mu, s) for s in s_list]
-px.line(x=s_list, y=probs, title='Exponential inter-arrival times')
+px.line(x=s_list, y=probs, title='Exponential service times')
 ```
 
 ### Offered load
