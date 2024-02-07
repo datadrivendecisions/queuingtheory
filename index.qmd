@@ -141,3 +141,5 @@ If a customer arrives to a finite buffer that is full, this customer is lost (bl
 ![Finite buffer](buffer.png)
 
 If a customer arrives to a infinite buffer and all the servers are busy, this customer lines up in the waiting buffer. This is called a **pure waiting queue**.
+
+![Infinite buffer](infbuffer.png)
