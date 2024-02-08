@@ -66,7 +66,7 @@ for u in u_list:
 ```{python}
 u_list = np.linspace(0.01, 1, num=1000)
 probs = [tail_dist_u(l, u) for u in u_list]
-px.line(x=u_list, y=probs, title='Exponential inter-arrival times')
+px.line(x=u_list, y=probs, title='Exponential inter-arrival times', labels={'x': 'u', 'y': 'P'})
 ```
 
 ## Lesson 2 - **Service durations**
@@ -105,7 +105,7 @@ for s in s_list:
 ```{python}
 s_list = np.linspace(0.01, 1, num=1000)
 probs = [tail_dist_u(mu, s) for s in s_list]
-px.line(x=s_list, y=probs, title='Exponential service times')
+px.line(x=s_list, y=probs, title='Exponential service times', labels={'x': 's', 'y': 'P'})
 ```
 
 ### Offered load
@@ -162,3 +162,44 @@ The **stationary state** of this randon process is studied in order to estimate 
 ```{=html}
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dxsPoCbgdDs?si=qTe_RDTgnUC5nLOM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 ```
+**Tail distribution**
+
+$$
+P(X \geq x) = e^{-\lambda x}
+$$
+
+```{python}
+s_list = np.linspace(0.01, 1, num=1000)
+probs = [tail_dist_u(mu, s) for s in s_list]
+px.line(x=s_list, y=probs, title='Exponential service times', labels={'x': 'x', 'y': 'P'})
+```
+
+|                                  |                                                 |
+|--------------------------------------|----------------------------------|
+| Mean                             | $E(X) = 1/\lambda$                              |
+| Variance                         | $var(X) = E(X^2) - (E(X))^2$                    |
+|                                  | $= E((X-E(X))^2)=1/\lambda^2$                   |
+| Squared Coefficient of Variation | $Cv^2=\frac{var(x)}{E(x)^2}=1, \forall \lambda$ |
+
+### Memoryless property
+
+Information of the time already spent by customer 1 in the system does not influence the distribution of the inter-arrival time of customer 2.
+
+$$
+P(U_i\geq u+u_0\ |\ U_i \geq u_0) = P(U_i\geq u) = e^{-\lambda u}
+$$
+
+where $P(A\ |\ B) = \frac{P(A \cap B)}{P(B)}$ when A and B are two events such that $P(B) \neq 0$
+
+### Minimum of two exponential random variables
+
+Let $U \sim e^ \lambda$ and $S \sim e^ \mu$. Assume that $U$ and $S$ are independent.
+
+![](minimums.png)
+
+$$Z = min(U,S) \text{, so that}$$ $$Z = U\ \text{ if } \  U \leq S $$ $$Z = S \ \text{ if } \  U > S $$ $$Z = min(U,S) \sim e^{\lambda + \mu}$$
+
+|                          |                                                        |
+|--------------------------------|----------------------------------------|
+| Departure after arrival  | $P(Z=U) = P(U \leq S) = \frac{\lambda}{\lambda + \mu}$ |
+| Departure before arrival | $P(Z=S) = P(U > S) = \frac{\mu}{\lambda + \mu}$        |
