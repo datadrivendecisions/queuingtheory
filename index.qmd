@@ -155,9 +155,9 @@ If a customer arrives to a infinite buffer and all the servers are busy, this cu
 
 The **evolution over time of the number of customers** in the system (waiting or being served) is modeled by a **random process**.
 
-The **stationary state** of this randon process is studied in order to estimate **average performance** (blocking probability, mean delay, mean utilization rate, etc.)
+The **stationary state** of this random process is studied in order to estimate **average performance** (blocking probability, mean delay, mean utilization rate, etc.)
 
-## Exponential distribution
+## Lesson 5 - Exponential distribution
 
 ```{=html}
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dxsPoCbgdDs?si=qTe_RDTgnUC5nLOM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -174,12 +174,12 @@ probs = [tail_dist_u(mu, s) for s in s_list]
 px.line(x=s_list, y=probs, title='Exponential service times', labels={'x': 'x', 'y': 'P'})
 ```
 
-|                                  |                                                 |
-|--------------------------------------|----------------------------------|
-| Mean                             | $E(X) = 1/\lambda$                              |
-| Variance                         | $var(X) = E(X^2) - (E(X))^2$                    |
-|                                  | $= E((X-E(X))^2)=1/\lambda^2$                   |
-| Squared Coefficient of Variation | $Cv^2=\frac{var(x)}{E(x)^2}=1, \forall \lambda$ |
+|                                  |                                                    |
+|-----------------------------|-------------------------------------------|
+| Mean                             | $E(X) = 1/\lambda$                                 |
+| Variance                         | $var(X) = E(X^2) - (E(X))^2$                       |
+|                                  | $= E((X-E(X))^2)=1/\lambda^2$                      |
+| Squared Coefficient of Variation | $Cv^2=\frac{var(x)}{E(x)^2}=1, \forall \  \lambda$ |
 
 ### Memoryless property
 
@@ -200,6 +200,63 @@ Let $U \sim e^ \lambda$ and $S \sim e^ \mu$. Assume that $U$ and $S$ are indepen
 $$Z = min(U,S) \text{, so that}$$ $$Z = U\ \text{ if } \  U \leq S $$ $$Z = S \ \text{ if } \  U > S $$ $$Z = min(U,S) \sim e^{\lambda + \mu}$$
 
 |                          |                                                        |
-|--------------------------------|----------------------------------------|
+|------------------------|------------------------------------------------|
 | Departure after arrival  | $P(Z=U) = P(U \leq S) = \frac{\lambda}{\lambda + \mu}$ |
 | Departure before arrival | $P(Z=S) = P(U > S) = \frac{\mu}{\lambda + \mu}$        |
+
+## Lesson 6 - **Poisson Process**
+
+```{=html}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Q76F-E75zzk?si=-vhSMVrSBVVg1nZn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+```
+### Characterizing Arrivals with the Counting Process
+
+![](arrivals.png)
+
+![](stepfunc1.png)
+
+$$
+A(t) = \sum_i^\infty \unicode{x1D7D9}_{T_i \leq t}
+$$
+
+```{python}
+def A(t, T):
+    """
+    Counting function A(t).
+
+    Parameters:
+    - t : The value up to which to count.
+    - T : A list or array of T_i values.
+
+    Returns:
+    - The count of T_i values less than or equal to t.
+    """
+    count = sum(1 for Ti in T if Ti <= t)
+    return count
+
+# Example usage:
+# Suppose we have a list of T_i values
+T_values = [1, 3, 5, 7, 9, 10]  # Replace this with the actual T_i values you have
+
+# Now, we can compute A(t) for a specific t value
+t = 6  # Replace this with the t value you want to use for counting
+count = A(t, T_values)
+
+print(f'A({t}) = {count}')
+```
+
+$$
+\lim_{{\Delta t \to 0}} \frac{o(\Delta t)}{\Delta t} = 0
+$$
+
+This expression is used in calculus to describe the behavior of a function as the change in the variable $\Delta t$ approaches zero. The function $o(\Delta t)$ is a "little-o notation" which is used to describe a function that grows much slower than $\Delta t$ as $\Delta t$ approaches zero. In other words, $o(\Delta t)$ becomes insignificant compared to $\Delta t$.
+
+The little-o notation $o(\Delta t)$ is often used to describe an error term or a remainder term in Taylor series expansions, and it means that the ratio $\frac{o(\Delta t)}{\Delta t}$ goes to zero as $\Delta t$ goes to zero. This is a way of saying that $o(\Delta t)$ is negligible compared to $\Delta t$ in the limit where $\Delta t$ is very small.
+
+This is an important concept in differential calculus and is used to formalize the definition of the derivative, among other things. It essentially says that whatever the function $o(\Delta t)$ is, it becomes irrelevant as $\Delta t$ becomes very small, because it grows much slower than $\Delta t$ itself.
+
+$$P(A(t + \Delta t) = n + 1 \mid A(t) = n) = \lambda \Delta t + o(\Delta t)$$
+
+$$P(A(t + \Delta t) = n \mid A(t) = n) = 1 - \lambda \Delta t + o(\Delta t)$$
+
+The expressions described above ensure that it is not possible for two or more customers to arrive at exactly the same time. Ergo: there will always be a time difference, however small, between two consecutive arrivals.
