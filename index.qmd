@@ -44,7 +44,7 @@ $$
 P(U_i \geq u) = e^{-\lambda u}
 $$
 
-The arrival rate $\lambda$ is the **the average number of arrivals per time unit** (e.g. patients per hour). The **average inter-arrvial time** s equals $1/\lambda$ (time units, e.g. hours)
+The arrival rate $\lambda$ is the **the average number of arrivals per time unit** (e.g. patients per hour). The **average inter-arrvial time** u equals $1/\lambda$ (time units, e.g. hours)
 
 ```{python}
 import math
